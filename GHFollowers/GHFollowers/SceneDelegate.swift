@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
 	
-		
+		configureNavigationBar()
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		window = UIWindow(frame: windowScene.coordinateSpace.bounds)
 		window?.windowScene = windowScene
@@ -46,6 +46,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		UITabBar.appearance().tintColor = .systemGreen
 		tabbar.viewControllers = [createSearchNC(), createFavouritesNC()]
 		return tabbar
+	}
+	
+	func configureNavigationBar() {
+		UINavigationBar.appearance().tintColor = .systemGreen
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {
