@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C30DC88F23E9638B00633B69 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30DC88E23E9638B00633B69 /* UIHelper.swift */; };
 		C31FFCC723E5063100B689F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31FFCC623E5063100B689F3 /* AppDelegate.swift */; };
 		C31FFCC923E5063100B689F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31FFCC823E5063100B689F3 /* SceneDelegate.swift */; };
 		C31FFCD023E5063200B689F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C31FFCCF23E5063200B689F3 /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C30DC88E23E9638B00633B69 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		C31FFCC323E5063100B689F3 /* GHFollowers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHFollowers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C31FFCC623E5063100B689F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C31FFCC823E5063100B689F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				C33A55C223E810D60075C63E /* ErrorMessage.swift */,
+				C30DC88E23E9638B00633B69 /* UIHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				C31FFCE523E5179700B689F3 /* String+Ext.swift in Sources */,
 				C31FFCED23E51C9500B689F3 /* UIViewControler+Ext.swift in Sources */,
 				C33A55C323E810D60075C63E /* ErrorMessage.swift in Sources */,
+				C30DC88F23E9638B00633B69 /* UIHelper.swift in Sources */,
 				C33A55C023E80BD10075C63E /* NetworkManager.swift in Sources */,
 				C31FFCC923E5063100B689F3 /* SceneDelegate.swift in Sources */,
 				C31FFCE923E518BB00B689F3 /* GFBodyLabel.swift in Sources */,
