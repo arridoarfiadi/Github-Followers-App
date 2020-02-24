@@ -6,12 +6,15 @@
 //  Copyright © 2020 Arrido Arfiadi. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class NetworkManager {
 	static let shared = NetworkManager()
 	private init() {}
-	let baseURL = "https://api.github.com"
+	private let baseURL = "https://api.github.com"
+	let cache = NSCache<NSString, UIImage>()
+	
+	
 	let perPageDefault = 100
 	func getFollowers(for username: String, page: Int, completion: @escaping (Result<[Follower], GFError>) -> Void) {
 		let endpoint = baseURL + "/users/\(username)/followers?per_page=\(perPageDefault)&page=\(page)"
