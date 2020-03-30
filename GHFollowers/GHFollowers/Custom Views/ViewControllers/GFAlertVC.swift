@@ -50,7 +50,7 @@ class GFAlertVC: UIViewController {
 			containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 			containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			containerView.heightAnchor.constraint(equalToConstant: 220),
-			containerView.heightAnchor.constraint(equalToConstant: 280)
+			containerView.widthAnchor.constraint(equalToConstant: 280)
 		])
 	}
 	
@@ -85,7 +85,7 @@ class GFAlertVC: UIViewController {
 		messageLabel.text = message ?? "Unable to complete request"
 		messageLabel.numberOfLines = 0
 		NSLayoutConstraint.activate([
-			messageLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
+			messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
 			messageLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: PADDING),
 			messageLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -PADDING),
 			messageLabel.bottomAnchor.constraint(equalTo: actionButton.topAnchor, constant: -12),
