@@ -29,4 +29,17 @@ extension String {
     func removeWhitespaces() -> String {
         return components(separatedBy: .whitespaces).joined()
     }
+	
+	func convertToDate() -> Date? {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+		dateFormatter.locale = Locale.current
+		
+		return dateFormatter.date(from: self)
+	}
+	
+	func convertToDisplayFormat() -> String {
+		guard let date = self.convertToDate() else {return ""}
+		return date.convertToMonthYearFormat() ?? ""
+	}
 }
