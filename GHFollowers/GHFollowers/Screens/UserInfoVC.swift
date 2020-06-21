@@ -13,6 +13,9 @@ protocol UserInfoVCDelegate: class {
 }
 
 class UserInfoVC: GFDataLoadingVC {
+	
+	let scrollView = UIScrollView()
+	let contentView = UIView()
 	var username: String!
 	let headerView = UIView()
 	let itemViewOne = UIView()
@@ -22,9 +25,11 @@ class UserInfoVC: GFDataLoadingVC {
 	weak var delegate: UserInfoVCDelegate?
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		configureScrollView()
 		configureViewController()
 		layoutUI()
 		getUserInfo()
+		
 	}
 	
 	@objc private func dismissVC() {
@@ -43,6 +48,17 @@ class UserInfoVC: GFDataLoadingVC {
 			case .failure(let error): self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
 			}
 		}
+	}
+	
+	private func configureScrollView() {
+		view.addSubview(scrollView)
+		scrollView.addSubview(contentView)
+		scrollView.pinToEdges(of: view)
+		contentView.pinToEdges(of: scrollView)
+		NSLayoutConstraint.activate([
+			contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+			contentView.heightAnchor.constraint(equalToConstant: 800)
+		])
 	}
 	
 	private func configureUIElements(with user: User) {
@@ -69,16 +85,16 @@ class UserInfoVC: GFDataLoadingVC {
 		let padding: CGFloat = 20
 		itemViews = [headerView, itemViewOne, itemViewTwo,dateLabel]
 		itemViews.forEach({
-			view.addSubview($0)
+			contentView.addSubview($0)
 			$0.translatesAutoresizingMaskIntoConstraints = false
-			$0.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -padding).isActive = true
-			$0.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: padding).isActive = true
+			$0.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding).isActive = true
+			$0.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding).isActive = true
 		})
 		
 		
 		let itemHeight: CGFloat = 140
 		NSLayoutConstraint.activate([
-			headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+			headerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
 			headerView.heightAnchor.constraint(equalToConstant: 210),
 			
 			itemViewOne.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
