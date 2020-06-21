@@ -9,18 +9,17 @@
 import UIKit
 
 protocol UserInfoVCDelegate: class {
-	func didTapGitHubProfile(for user: User)
-	func didTapGetFollowers(for user: User)
+	func didRequestFollowers(for username: String)
 }
 
-class UserInfoVC: UIViewController {
+class UserInfoVC: GFDataLoadingVC {
 	var username: String!
 	let headerView = UIView()
 	let itemViewOne = UIView()
 	let itemViewTwo = UIView()
 	var itemViews: [UIView] = []
 	let dateLabel = GFBodyLabel(textAlignment: .center)
-	weak var delegate: FollowerListVCDelegate?
+	weak var delegate: UserInfoVCDelegate?
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		configureViewController()
@@ -57,7 +56,7 @@ class UserInfoVC: UIViewController {
 		self.add(chidVC: GFUserInfoHeaderVC(user: user), to: self.headerView)
 		self.add(chidVC: repoItemVC, to: self.itemViewOne)
 		self.add(chidVC: followerItemVC, to: self.itemViewTwo)
-		self.dateLabel.text = user.createdAt.convertToDisplayFormat()
+		self.dateLabel.text = user.createdAt.convertToMonthYearFormat()
 	}
 	
 	private func configureViewController() {
@@ -80,7 +79,7 @@ class UserInfoVC: UIViewController {
 		let itemHeight: CGFloat = 140
 		NSLayoutConstraint.activate([
 			headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-			headerView.heightAnchor.constraint(equalToConstant: 180),
+			headerView.heightAnchor.constraint(equalToConstant: 210),
 			
 			itemViewOne.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
 			itemViewOne.heightAnchor.constraint(equalToConstant: itemHeight),
@@ -89,7 +88,7 @@ class UserInfoVC: UIViewController {
 			itemViewTwo.heightAnchor.constraint(equalToConstant: itemHeight),
 			
 			dateLabel.topAnchor.constraint(equalTo: itemViewTwo.bottomAnchor, constant: padding),
-			dateLabel.heightAnchor.constraint(equalToConstant: 18)
+			dateLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18)
 			
 		])
 	}
@@ -103,7 +102,7 @@ class UserInfoVC: UIViewController {
 	
 }
 
-extension UserInfoVC: UserInfoVCDelegate {
+extension UserInfoVC: GFFollowerItemVCDelegate, GFRepoItemVCDelegate {
 	func didTapGitHubProfile(for user: User) {
 		guard let url = URL(string: user.htmlUrl) else {
 			presentGFAlertOnMainThread(title: "Invalid URL", message: "The url attached to this user is invalid", buttonTitle: "Dismiss")

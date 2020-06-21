@@ -7,9 +7,11 @@
 //
 
 import UIKit
-
+protocol GFRepoItemVCDelegate: class {
+	func didTapGitHubProfile(for user: User)
+}
 class GFRepoItemVC: GFItemInfoVC {
-	
+	weak var delegate: GFRepoItemVCDelegate?
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		configureItem()
@@ -24,7 +26,7 @@ class GFRepoItemVC: GFItemInfoVC {
 	
 	override func actionButtonTapped() {
 		super.actionButtonTapped()
-		delegate.didTapGitHubProfile(for: user)
+		delegate?.didTapGitHubProfile(for: user)
 	}
 }
 
