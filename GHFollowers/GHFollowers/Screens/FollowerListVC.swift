@@ -26,7 +26,7 @@ class FollowerListVC: UIViewController {
 	var isSearching = false
     override func viewDidLoad() {
         super.viewDidLoad()
-		view.backgroundColor = .systemBackground
+		configureViewController()
 		configureCollectionView()
 		configureDataSource()
 		configureSearchController()
@@ -39,6 +39,33 @@ class FollowerListVC: UIViewController {
 		navigationController?.setNavigationBarHidden(false, animated: true)
 	}
 	
+	private func configureViewController() {
+		view.backgroundColor = .systemBackground
+		let addButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+		navigationItem.rightBarButtonItem = addButtonItem
+	}
+
+	@objc private func addButtonTapped() {
+		showLoadingView()
+		NetworkManager.shared.getUserInfo(for: username) { [weak self] (result) in
+			guard let self = self else {return}
+			self.dismissLoadingView()
+			switch result {
+			case .success(let user):
+				let favorite = Follower(login: user.login, avatarUrl: user.avatarUrl)
+				PersistenceManager.update(with: favorite, actionType: .add) { [weak self] (error) in
+					guard let self = self else {return}
+					guard let error = error else {
+						self.presentGFAlertOnMainThread(title: "Success!", message: "Save Success", buttonTitle: "Dismiss")
+						return
+					}
+					self.presentGFAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Dismiss")
+				}
+			case .failure(let error):
+				self.presentGFAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Dismiss")
+			}
+		}
+	}
 	
 	
 	private func configureCollectionView() {
